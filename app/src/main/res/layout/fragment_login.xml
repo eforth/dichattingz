@@ -12,11 +12,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="Email"
-        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintStart_toStartOf="@+id/email"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/email"
         android:layout_width="0dp"
         android:layout_height="35dp"
         android:layout_marginStart="40dp"
@@ -35,8 +35,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Password"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        app:layout_constraintStart_toStartOf="@+id/email"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
     <EditText
         android:id="@+id/password"
@@ -46,8 +46,8 @@
         android:ems="10"
         android:background="@drawable/classic_edit"
         android:inputType="textPassword"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="@+id/editText"
+        app:layout_constraintEnd_toEndOf="@+id/email"
+        app:layout_constraintStart_toStartOf="@+id/email"
         app:layout_constraintTop_toBottomOf="@+id/txtViewPassword" />
 
     <Button

@@ -50,6 +50,7 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        auth = FirebaseAuth.getInstance();
         username = view.findViewById(R.id.email);
         password = view.findViewById(R.id.password);
         progressBar = view.findViewById(R.id.progressBar);
@@ -69,7 +70,7 @@ public class LoginFragment extends Fragment {
 
         progressBar.setVisibility(View.VISIBLE);
 
-        if (!TextUtils.isEmpty(usernameTxt) || !TextUtils.isEmpty(passwordTxt)) {
+        if (TextUtils.isEmpty(usernameTxt) || TextUtils.isEmpty(passwordTxt)) {
             Toast.makeText(getContext(), "Please check Username/Password fields.",
                     Toast.LENGTH_SHORT).show();
             progressBar.setVisibility(View.INVISIBLE);
