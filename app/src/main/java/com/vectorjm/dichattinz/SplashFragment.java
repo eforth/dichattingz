@@ -9,7 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 public class SplashFragment extends Fragment {
+
+    private FirebaseAuth auth;
 
 
     public SplashFragment() {
@@ -34,10 +38,21 @@ public class SplashFragment extends Fragment {
             public void run() {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.baseContainer, new LoginFragment())
+                        .replace(R.id.baseContainer, checkAuth())
                         .addToBackStack(null)
                         .commit();
             }
         }, 2000);
+    }
+
+    private Fragment checkAuth() {
+
+        auth = FirebaseAuth.getInstance();
+
+        if (auth.getCurrentUser() != null) {
+            return new HomeFragment();
+        }
+
+        return new LoginFragment();
     }
 }
