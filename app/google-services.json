@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "623400083125",
+    "firebase_url": "https://di-chattinz-d93d5.firebaseio.com",
+    "project_id": "di-chattinz-d93d5",
+    "storage_bucket": "di-chattinz-d93d5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623400083125:android:436e9bd2839b045d",
+        "android_client_info": {
+          "package_name": "com.vectorjm.dichattinz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623400083125-tdb0p7anagasf7vsqa4ovjkr7bgd8ne3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBM7ZorqBqT6MiEAFqB3GoQhakcHGPMsJE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "623400083125-tdb0p7anagasf7vsqa4ovjkr7bgd8ne3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
