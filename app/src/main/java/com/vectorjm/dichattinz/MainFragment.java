@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainFragment extends Fragment implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -67,6 +70,8 @@ public class MainFragment extends Fragment implements NavigationView.OnNavigatio
         drawerToggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
 
+        setupHeaderView(navigationView);
+
         getChildFragmentManager()
                 .beginTransaction()
                 .replace(R.id.mainContainer, new HomeFragment())
@@ -99,6 +104,19 @@ public class MainFragment extends Fragment implements NavigationView.OnNavigatio
         navigationView.getMenu().getItem(0).setChecked(false);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setupHeaderView(NavigationView navigationView) {
+
+        View header = navigationView.getHeaderView(0);
+        ImageView imageView = header.findViewById(R.id.nav_header_imageView);
+        TextView headerName = header.findViewById(R.id.nav_header_textView);
+
+        if (auth.getCurrentUser() == null) return;
+
+        FirebaseUser user = auth.getCurrentUser();
+
+        headerName.setText(user.getDisplayName());
     }
 
     private void logoutAction() {
