@@ -50,7 +50,7 @@ public class SplashFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
 
         if (auth.getCurrentUser() != null) {
-            return new HomeFragment();
+            return new MainFragment();
         }
 
         return new LoginFragment();

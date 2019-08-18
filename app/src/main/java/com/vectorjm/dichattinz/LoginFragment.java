@@ -88,7 +88,7 @@ public class LoginFragment extends Fragment {
 
                             getActivity().getSupportFragmentManager()
                                     .beginTransaction()
-                                    .replace(R.id.baseContainer, new HomeFragment())
+                                    .replace(R.id.baseContainer, new MainFragment())
                                     .addToBackStack(null)
                                     .commit();
                         } else {
