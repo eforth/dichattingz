@@ -12,4 +12,7 @@
     <string name="messaging">Messaging</string>
     <string name="name">First Last</string>
     <string name="logout">Logout</string>
+    <string name="register">Register</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 </resources>
