@@ -123,7 +123,7 @@ public class RegisterFragment extends Fragment {
                             return;
                         }
 
-                        String name = String.format(Locale.getDefault(), " %s %s",
+                        String name = String.format(Locale.getDefault(), "%s %s",
                                 firstNameText.getText().toString(),
                                 lastNameText.getText().toString()
                         );
