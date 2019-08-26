@@ -55,11 +55,11 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
         switch (chatBouts.get(position).getType()) {
             case "ChatBoutPlayable":
-                return 2;
+                return CHATBOUT_PLAYABLE;
             case "ChatBoutImage":
-                return 1;
+                return CHATBOUT_IMAGE;
             default:
-                return 0;
+                return CHATBOUT;
         }
     }
 
@@ -110,7 +110,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.text.setText(chatBout.getText());
 
         // TODO: Load profile image
-        new DownloadImageTask(holder.profile).execute("https://live.staticflickr.com/7890/46490289895_f1a6f8b0c9_b_d.jpg");
+        new DownloadImageTask(holder.profile)
+                .execute("https://live.staticflickr.com/7890/46490289895_f1a6f8b0c9_b_d.jpg");
     }
 
     private void configureHolder(ChartBoutImageHolder holder, int position) {
@@ -128,6 +129,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     private void configureHolder(ChatBoutPlayableHolder holder, int position) {
+
         ChatBoutPlayable chatBout = (ChatBoutPlayable) chatBouts.get(position);
 
         holder.name.setText(user.getDisplayName().trim());
@@ -149,6 +151,8 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         holder.playerView.setPlayer(player);
         player.prepare(mediaSource);
     }
+
+
 
     public static class ChartBoutImageHolder extends RecyclerView.ViewHolder {
 
@@ -203,6 +207,7 @@ public class FeedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     }
 
     public static class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+
         ImageView bmImage;
 
         public DownloadImageTask(ImageView bmImage) {

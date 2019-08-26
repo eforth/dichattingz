@@ -60,14 +60,19 @@ public class MainFragment extends Fragment implements NavigationView.OnNavigatio
         Toolbar toolbar = view.findViewById(R.id.toolbar);
         navigationView = view.findViewById(R.id.navigation);
         drawerLayout = view.findViewById(R.id.drawer);
+
+
         drawerToggle = new ActionBarDrawerToggle(getActivity(), drawerLayout, R.string.Open,
                 R.string.Close);
 
         if (baseActivity == null) return;
 
         baseActivity.setSupportActionBar(toolbar);
+
         drawerLayout.addDrawerListener(drawerToggle);
+
         drawerToggle.syncState();
+
         navigationView.setNavigationItemSelectedListener(this);
 
         setupHeaderView(navigationView);
@@ -121,7 +126,9 @@ public class MainFragment extends Fragment implements NavigationView.OnNavigatio
 
     private void logoutAction() {
         if (getActivity() == null) return;
+
         auth.signOut();
+
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.baseContainer, new LoginFragment())

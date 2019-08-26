@@ -7,6 +7,9 @@ public class ChatBout {
     private Long dateCreated;
     private String text;
 
+    public ChatBout() {
+    }
+
     public ChatBout(String id, String uid, Long dateCreated, String text) {
         this.id = id;
         this.uid = uid;

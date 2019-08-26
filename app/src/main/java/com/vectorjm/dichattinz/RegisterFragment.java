@@ -68,7 +68,7 @@ public class RegisterFragment extends Fragment {
         backBtn = view.findViewById(R.id.backBtn);
         registerBtn = view.findViewById(R.id.registerBtn);
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener backBtnClickListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 getActivity().getSupportFragmentManager()
@@ -77,7 +77,9 @@ public class RegisterFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();
             }
-        });
+        };
+
+        backBtn.setOnClickListener(backBtnClickListener);
 
         registerBtn.setOnClickListener(new View.OnClickListener() {
             @Override

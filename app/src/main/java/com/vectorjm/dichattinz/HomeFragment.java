@@ -3,6 +3,9 @@ package com.vectorjm.dichattinz;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -25,6 +28,28 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_add_chatbout, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.add) {
+            // TODO: Launch the ChatBout Sheet
+            showChatBoutAddSheet();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_home, container, false);
@@ -34,7 +59,9 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
 
         RecyclerView recyclerView = view.findViewById(R.id.feedList);
+
         adapter = new FeedAdapter(getActivity(), chatBouts);
+
         RecyclerView.LayoutManager manager = new LinearLayoutManager(view.getContext());
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -53,7 +80,7 @@ public class HomeFragment extends Fragment {
 
         if (baseActivity.getSupportActionBar() == null) return;
 
-        baseActivity.setTitle("Home");
+        baseActivity.setTitle("Feed");
         baseActivity.getSupportActionBar().setDisplayShowHomeEnabled(true);
         baseActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
@@ -72,17 +99,18 @@ public class HomeFragment extends Fragment {
         };
 
         String[] playableUrls = new String[] {
-                "https://gcs-vimeo.akamaized.net/exp=1566196097~acl=%2A%2F437778683.mp4%2A~hmac=35d331894996f2ae898be0bfb21001097692160ce6535a67e40ddf113eacf161/vimeo-prod-skyfire-std-us/01/4023/5/145116912/437778683.mp4",
-                "https://gcs-vimeo.akamaized.net/exp=1566193031~acl=%2A%2F738994030.mp4%2A~hmac=4ed8e46baabd27f5b2c1b01eeef511282d2553e2df2a8a2455621638c2ed5944/vimeo-prod-skyfire-std-us/01/2894/8/214473636/738994030.mp4?download=1&filename=Pexels+Videos+3520.mp4",
-                "https://gcs-vimeo.akamaized.net/exp=1566196097~acl=%2A%2F437778683.mp4%2A~hmac=35d331894996f2ae898be0bfb21001097692160ce6535a67e40ddf113eacf161/vimeo-prod-skyfire-std-us/01/4023/5/145116912/437778683.mp4",
+                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
         };
 
         String message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
-                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim ";
+                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim";
 
         for (int i = 0; i < 10; i++) {
 
             ChatBout chatBout;
+
             int random = (int)(Math.random() * 6);
             int r = (int)(Math.random() * 3);
 
@@ -99,5 +127,10 @@ public class HomeFragment extends Fragment {
             chatBouts.add(chatBout);
             adapter.notifyDataSetChanged();
         }
+    }
+
+    private void showChatBoutAddSheet() {
+        ChatBoutSheetFragment sheetDialog = new ChatBoutSheetFragment();
+        sheetDialog.show(getActivity().getSupportFragmentManager(), null);
     }
 }
