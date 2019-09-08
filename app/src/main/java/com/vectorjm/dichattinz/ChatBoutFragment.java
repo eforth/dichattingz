@@ -8,11 +8,29 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ChatBoutFragment extends DialogFragment {
+
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private TextInputEditText textField;
 
 
     public ChatBoutFragment() {
@@ -35,8 +53,51 @@ public class ChatBoutFragment extends DialogFragment {
                 dismiss();
             }
         });
+        v.findViewById(R.id.saveBtn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveChatBout();
+            }
+        });
+        textField = v.findViewById(R.id.text);
+
 
         return v;
+    }
+
+    private void saveChatBout() {
+
+        if (TextUtils.isEmpty(textField.getText().toString())) {
+            Toast.makeText(getContext(), "ChatBout text field cannot be empty!",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Map<String, Object> chatBout = new HashMap<>();
+
+        chatBout.put("uid", auth.getCurrentUser().getEmail());
+        chatBout.put("dateCreated", (new Date()).getTime());
+        chatBout.put("text", textField.getText().toString());
+        chatBout.put("type", "ChatBout");
+
+        db.collection("posts")
+                .add(chatBout)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Document",
+                                "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        e.printStackTrace();
+                        Log.w("Error", "Error adding document", e);
+                    }
+                });
+
+        dismiss();
     }
 
 }

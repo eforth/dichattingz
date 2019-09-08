@@ -2,6 +2,7 @@ package com.vectorjm.dichattinz;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -16,6 +17,13 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +31,8 @@ public class HomeFragment extends Fragment {
 
     private List<ChatBout> chatBouts = new ArrayList<>();
     private FeedAdapter adapter;
+    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth auth = FirebaseAuth.getInstance();
 
     public HomeFragment() {
     }
@@ -89,44 +99,65 @@ public class HomeFragment extends Fragment {
 
         chatBouts.clear();
 
-        String[] imageUrls = new String[] {
-                "https://live.staticflickr.com/6031/6328081652_c020799cf9_o_d.jpg",
-                "https://live.staticflickr.com/8511/8490855333_8910327404_b_d.jpg",
-                "https://live.staticflickr.com/4812/46682249304_de758b81d0_b_d.jpg",
-                "https://live.staticflickr.com/3063/3027226153_842214cfc2_o_d.jpg",
-                "https://live.staticflickr.com/4820/33529545498_d6cee0287d_b_d.jpg",
-                "https://live.staticflickr.com/7890/46490289895_f1a6f8b0c9_b_d.jpg"
-        };
+        db.collection("posts")
+                .whereEqualTo("uid", auth.getCurrentUser().getEmail())
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-        String[] playableUrls = new String[] {
-                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
-        };
+                        if (!task.isSuccessful()) {
+                            Log.d("Error", "Error getting documents: ", task.getException());
+                            return;
+                        }
 
-        String message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
-                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim";
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            ChatBout chatBout = ChatBout.toChatBout(document);
+                            chatBouts.add(chatBout);
+                            adapter.notifyDataSetChanged();
+                        }
+                    }
+                });
 
-        for (int i = 0; i < 10; i++) {
 
-            ChatBout chatBout;
-
-            int random = (int)(Math.random() * 6);
-            int r = (int)(Math.random() * 3);
-
-            if (i % 2 == 0 && i % 3 != 0) {
-                chatBout = new ChatBoutImage("" + i, "" + i, 454965L, message,
-                        imageUrls[random]);
-            } else if (i % 3 == 0) {
-                chatBout = new ChatBoutPlayable("" + i, "" + i, 454965L, message,
-                        playableUrls[r]);
-            } else {
-                chatBout = new ChatBout("" + i, "" + i, 59458L, message);
-            }
-
-            chatBouts.add(chatBout);
-            adapter.notifyDataSetChanged();
-        }
+//        String[] imageUrls = new String[] {
+//                "https://live.staticflickr.com/6031/6328081652_c020799cf9_o_d.jpg",
+//                "https://live.staticflickr.com/8511/8490855333_8910327404_b_d.jpg",
+//                "https://live.staticflickr.com/4812/46682249304_de758b81d0_b_d.jpg",
+//                "https://live.staticflickr.com/3063/3027226153_842214cfc2_o_d.jpg",
+//                "https://live.staticflickr.com/4820/33529545498_d6cee0287d_b_d.jpg",
+//                "https://live.staticflickr.com/7890/46490289895_f1a6f8b0c9_b_d.jpg"
+//        };
+//
+//        String[] playableUrls = new String[] {
+//                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+//                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+//                "https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4",
+//        };
+//
+//        String message = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod " +
+//                "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim";
+//
+//        for (int i = 0; i < 10; i++) {
+//
+//            ChatBout chatBout;
+//
+//            int random = (int)(Math.random() * 6);
+//            int r = (int)(Math.random() * 3);
+//
+//            if (i % 2 == 0 && i % 3 != 0) {
+//                chatBout = new ChatBoutImage("" + i, "" + i, 454965L, message,
+//                        imageUrls[random]);
+//            } else if (i % 3 == 0) {
+//                chatBout = new ChatBoutPlayable("" + i, "" + i, 454965L, message,
+//                        playableUrls[r]);
+//            } else {
+//                chatBout = new ChatBout("" + i, "" + i, 59458L, message);
+//            }
+//
+//            chatBouts.add(chatBout);
+//            adapter.notifyDataSetChanged();
+//        }
     }
 
     private void showChatBoutAddSheet() {
