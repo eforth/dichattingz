@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.add) {
             // TODO: Launch the ChatBout Sheet
-            showChatBoutAddSheet();
+            showChatBoutAddFragment();
             return true;
         }
 
@@ -160,8 +160,8 @@ public class HomeFragment extends Fragment {
 //        }
     }
 
-    private void showChatBoutAddSheet() {
-        ChatBoutSheetFragment sheetDialog = new ChatBoutSheetFragment();
-        sheetDialog.show(getActivity().getSupportFragmentManager(), null);
+    private void showChatBoutAddFragment() {
+        ChatBoutFragment dialog = new ChatBoutFragment();
+        dialog.show(getActivity().getSupportFragmentManager(), null);
     }
 }
