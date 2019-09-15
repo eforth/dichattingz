@@ -105,11 +105,7 @@ public class MainFragment extends Fragment implements NavigationView.OnNavigatio
 
         setupHeaderView(navigationView);
 
-        getChildFragmentManager()
-                .beginTransaction()
-                .replace(R.id.mainContainer, new HomeFragment())
-                .addToBackStack(null)
-                .commit();
+        loadScreen(null);
     }
 
     @Override
@@ -117,15 +113,19 @@ public class MainFragment extends Fragment implements NavigationView.OnNavigatio
         switch(item.getItemId()) {
             case R.id.account:
                 Toast.makeText(getActivity(), R.string.account, Toast.LENGTH_SHORT).show();
+                loadScreen(null);
                 break;
             case R.id.home:
                 Toast.makeText(getActivity(), R.string.home, Toast.LENGTH_SHORT).show();
+                loadScreen(null);
                 break;
             case R.id.friends:
                 Toast.makeText(getActivity(), R.string.friends, Toast.LENGTH_SHORT).show();
+                loadScreen(null);
                 break;
             case R.id.messaging:
                 Toast.makeText(getActivity(), R.string.messaging, Toast.LENGTH_SHORT).show();
+                loadScreen(null);
                 break;
             case R.id.logout:
                 logoutAction();
@@ -137,6 +137,17 @@ public class MainFragment extends Fragment implements NavigationView.OnNavigatio
         navigationView.getMenu().getItem(0).setChecked(false);
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void loadScreen(Fragment fragment) {
+
+        if (fragment == null) fragment = new HomeFragment();
+
+        getChildFragmentManager()
+                .beginTransaction()
+                .replace(R.id.mainContainer, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
     private void setupHeaderView(NavigationView navigationView) {

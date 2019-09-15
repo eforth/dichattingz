@@ -1,165 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".ChatBoutFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:elevation="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/saveBtn"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="24dp"
-            android:backgroundTint="@color/colorPrimary"
-            android:text="@string/save"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/audioBtn" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <TextView
-            android:id="@+id/txtViewTitle"
-            android:layout_width="0dp"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/post"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@id/closeBtn"
-            app:layout_constraintEnd_toStartOf="@+id/closeBtn"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:paddingBottom="30dp">
 
-        <TextView
-            android:id="@+id/txtViewDetails"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="16dp"
-            android:text="@string/what_would_like_to_talk_about"
-            android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/closeBtn" />
+            <ImageView
+                android:id="@+id/photo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/app_name"
+                android:scaleType="centerCrop"
+                android:visibility="gone"
+                app:layout_constraintDimensionRatio="H, 4:3"
+                app:layout_constraintEnd_toEndOf="@id/text"
+                app:layout_constraintStart_toStartOf="@id/text"
+                app:layout_constraintTop_toBottomOf="@id/playerView"
+                tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-        <ViewStub
-            android:id="@+id/mediaContent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/text"
-            app:layout_constraintStart_toStartOf="@id/text"
-            app:layout_constraintTop_toBottomOf="@+id/text" />
+            <TextView
+                android:id="@+id/txtViewDetails"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/what_would_like_to_talk_about"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txtVwAdditionalContent"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/additional_content"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/text"
-            app:layout_constraintStart_toStartOf="@id/text"
-            app:layout_constraintTop_toBottomOf="@+id/mediaContent" />
+            <TextView
+                android:id="@+id/txtVwAdditionalContent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/additional_content"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/text"
+                app:layout_constraintStart_toStartOf="@id/text"
+                app:layout_constraintTop_toBottomOf="@+id/photo" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/closeBtn"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@android:color/transparent"
-            android:src="@drawable/close"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/closePlayableBtn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/black"
+                android:src="@drawable/close"
+                android:tint="@android:color/white"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/playerView"
+                app:layout_constraintTop_toTopOf="@id/playerView" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/cameraBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/circle_outline"
-            android:src="@drawable/camera"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintEnd_toStartOf="@+id/galleryBtn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toStartOf="@id/txtVwAdditionalContent"
-            app:layout_constraintTop_toBottomOf="@id/txtVwAdditionalContent" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/closeMediaBtn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/black"
+                android:src="@drawable/close"
+                android:tint="@android:color/white"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/photo"
+                app:layout_constraintTop_toTopOf="@id/photo" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/galleryBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/circle_outline"
-            android:src="@drawable/gallery"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintEnd_toStartOf="@+id/videoBtn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/cameraBtn"
-            app:layout_constraintTop_toTopOf="@+id/cameraBtn" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/cameraBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/circle_outline"
+                android:src="@drawable/camera"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/galleryBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toStartOf="@id/txtVwAdditionalContent"
+                app:layout_constraintTop_toBottomOf="@id/txtVwAdditionalContent" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/videoBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/circle_outline"
-            android:src="@drawable/videocam"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintEnd_toStartOf="@+id/audioBtn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/galleryBtn"
-            app:layout_constraintTop_toTopOf="@+id/galleryBtn" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/galleryBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/circle_outline"
+                android:src="@drawable/gallery"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/videoBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/cameraBtn"
+                app:layout_constraintTop_toTopOf="@+id/cameraBtn" />
 
-        <androidx.appcompat.widget.AppCompatImageButton
-            android:id="@+id/audioBtn"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginEnd="10dp"
-            android:background="@drawable/circle_outline"
-            android:src="@drawable/audio"
-            android:tint="@color/colorPrimary"
-            app:layout_constraintEnd_toEndOf="@id/txtVwAdditionalContent"
-            app:layout_constraintEnd_toStartOf="@+id/videoBtn"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintStart_toEndOf="@+id/videoBtn"
-            app:layout_constraintTop_toTopOf="@+id/videoBtn" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/videoBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/circle_outline"
+                android:src="@drawable/videocam"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintEnd_toStartOf="@+id/audioBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/galleryBtn"
+                app:layout_constraintTop_toTopOf="@+id/galleryBtn" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/text"
-            android:layout_width="0dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/filled_edit"
-            android:ems="10"
-            android:gravity="start|top"
-            android:inputType="textMultiLine"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtViewDetails" />
+            <androidx.appcompat.widget.AppCompatImageButton
+                android:id="@+id/audioBtn"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/circle_outline"
+                android:src="@drawable/audio"
+                android:tint="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="@id/txtVwAdditionalContent"
+                app:layout_constraintEnd_toStartOf="@+id/videoBtn"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/videoBtn"
+                app:layout_constraintTop_toTopOf="@+id/videoBtn" />
+
+            <com.google.android.exoplayer2.ui.PlayerView
+                android:id="@+id/playerView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:visibility="gone"
+                app:layout_constraintDimensionRatio="H, 16:9"
+                app:layout_constraintEnd_toEndOf="@id/text"
+                app:layout_constraintStart_toStartOf="@id/text"
+                app:layout_constraintTop_toBottomOf="@id/text" />
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/text"
+                android:layout_width="0dp"
+                android:layout_height="150dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/filled_edit"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txtViewDetails" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>
