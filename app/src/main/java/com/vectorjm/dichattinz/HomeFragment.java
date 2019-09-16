@@ -161,7 +161,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void showChatBoutAddFragment() {
-        ChatBoutFragment dialog = new ChatBoutFragment();
+        ChatBoutDialog dialog = new ChatBoutDialog();
         dialog.show(getActivity().getSupportFragmentManager(), null);
     }
 }

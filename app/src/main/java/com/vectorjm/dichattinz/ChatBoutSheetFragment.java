@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
@@ -39,7 +37,7 @@ public class ChatBoutSheetFragment extends BottomSheetDialogFragment {
         textBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ChatBoutFragment dialog = new ChatBoutFragment();
+                ChatBoutDialog dialog = new ChatBoutDialog();
                 dialog.show(getActivity().getSupportFragmentManager(), null);
                 dismiss();
             }
